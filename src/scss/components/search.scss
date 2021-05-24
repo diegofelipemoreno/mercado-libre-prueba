@@ -1,0 +1,35 @@
+.search {
+  background-color: $white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  &__input {
+    @include font-type($font-family-light, 20px, $base-font-size-xl);
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    height: 76px;
+    padding: 27px 32px;
+    width: 100%;
+  }
+
+  &__cta {
+    background-color: $ashes;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    border: none;
+    cursor: pointer;
+    height: 77px;
+    width: 94px;
+
+    &:disabled {
+      cursor: initial;
+      
+      img {
+        opacity: .4;
+      }
+    }
+  }
+}

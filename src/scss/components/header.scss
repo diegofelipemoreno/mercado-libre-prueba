@@ -1,0 +1,31 @@
+.header {
+   height: 112px;
+   width: 100%;
+   overflow: hidden;
+
+   &:after {
+    background-color: $shine;
+    content: '';
+    height: 112px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &__container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    grid-column: 2/12;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  &__logo {
+    height: 74px;
+    width: 104px;
+    margin-right: 54px;
+  }
+}

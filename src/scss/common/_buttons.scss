@@ -1,0 +1,10 @@
+.cta-1 {
+  @include font-type($font-family-base, 14px, 16px);
+  background-color: $sky;
+  border-radius: 5px;
+  box-sizing: content-box;
+  border: none;
+  color: $white;
+  cursor: pointer;
+  padding: 24px;
+}
