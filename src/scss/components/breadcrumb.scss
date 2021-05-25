@@ -1,7 +1,32 @@
 .breadcrumb {
-  margin: 20px 0;
+  margin: 16px 0;
   
   &__container {
+    @include font-type($font-family-light, $base-font-size-medium, 18px); 
+
     grid-column: 2/12;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__category {
+    color: $smoke;
+
+    &:after {
+      font-size: $base-font-size-xl;
+      content: '>';
+      margin: 0 10px;
+    }
+
+    &:last-child{
+      font-weight: $medium-font-weight;
+
+      &:after {
+       display: none;
+      }
+    }
   }
 }

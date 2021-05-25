@@ -3,7 +3,8 @@
     border-radius: 5px;
     background-color: $white;
     grid-column: 2/12;
-    padding: 16px;
+    padding: 33px;
+    margin-bottom: 80px;
   }
 
   &__element {
@@ -11,6 +12,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
+    margin-bottom: 32px;
 
     &::after {
       background-color: $ashes;
@@ -22,30 +24,62 @@
       transform: translate(0, 16px);
       width: calc(100% - 60px);
     }
+
+    &--no-results {
+      @include font-type($font-family-light, $base-font-size-huge, 16px);
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      min-height: 300px;
+    }
   }
 
   &__body {
-    margin-top: 16px;
+    margin-top: 40px;
+    text-align: left;
+  }
+
+  &__city {
+    @include font-type($font-family-light, $base-font-size, 16px);
+    color: $grey;
+    position: absolute;
+    right: 8%;
+    text-align: right;
+    top: 50px;
   }
 
   &__price {
-    @include font-type($font-family-light, 20px, $base-font-size-xl);
+    @include font-type($font-family-light, $base-font-size-huge, 32px);
     margin-bottom: 32px;
   }
 
   &__text {
-    @include font-type($font-family-light, 20px, $base-font-size-xl);
+    @include font-type($font-family-light, $base-font-size-xl, 24px);
+
+    width: 80%;
   }
 
   &__image {
-    border-radius: 10px;
+    border: 1px solid $ashes;
+    border-radius: 4px;
     height: 180px;
-    margin: 0 16px;
+    margin: 0 16px 0 0;
     overflow: hidden;
     width: 180px;
 
     img {
       height: 100%;
     }
+  }
+
+  &__cta {
+    align-items: flex-start;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
   }
 }

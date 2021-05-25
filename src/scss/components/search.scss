@@ -3,15 +3,17 @@
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  height: 50px;
   width: 100%;
 
   &__input {
-    @include font-type($font-family-light, 20px, $base-font-size-xl);
+    @include font-type($font-family-light, $base-font-size-xl, 20px);
+
     background: transparent;
     border: none;
     box-sizing: border-box;
-    height: 76px;
-    padding: 27px 32px;
+    height: 50px;
+    padding: 20px;
     width: 100%;
   }
 
@@ -21,8 +23,12 @@
     border-top-right-radius: 10px;
     border: none;
     cursor: pointer;
-    height: 77px;
+    height: 50px;
     width: 94px;
+
+    img {
+      width: 25px;
+    }
 
     &:disabled {
       cursor: initial;

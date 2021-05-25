@@ -1,12 +1,12 @@
 .product {
   position: relative;
-  grid-template-rows: 32px [product] auto 112px [description] auto;
+  grid-template-rows: 32px [product] auto 112px [description] auto 180px;
 
   &:after {
     content: '';
     position: absolute;
     width: calc(100% - 17%);
-    height: calc(100% + 64px);
+    height: 100%;
     left: 0;
     top: 0;
     background-color: $white;
@@ -15,14 +15,23 @@
   }
 
   &__eyebrow {
+    @include font-type($font-family-bold, $base-font-size-medium, 18px);
+    color: $carbon;
+    display: block;
     margin-bottom: 16px;
   }
 
   &__heading {
+    @include font-type($font-family-bold, $base-font-size-huge, 32px);
+    color: $carbon;
+    font-weight: $bold-font-weight;
     margin-bottom: 32px;
+    width: 70%;
   }
 
   &__price {
+    @include font-type($font-family-light, 46px, 52px);
+    color: $carbon;
     margin-bottom: 32px;
   }
 
@@ -43,27 +52,35 @@
 
   &__image {
     border-radius: 10px;
+    border: 1px solid $ashes;
     grid-column: 3/9;
     grid-row: product;
     margin: 0 16px;
     overflow: hidden;
+    transform: translate(-6%, 0);
+    max-width: 680px;
 
     img {
-      width: 680px;
+      width: 100%;
     }
   }
 
   &__description {
-    grid-column: 2/12;
+    grid-column: 3/8;
     grid-row: description;
     margin-left: 32px;
+    transform: translate(-6%, 0);
   }
 
   &__title {
+    @include font-type($font-family-light, 28px, 32px);
+    color: $carbon;
     margin-bottom: 32px;
   }
 
   &__text {
+    @include font-type($font-family-light, 16px, 22px);
+    color: $smoke;
     margin-bottom: 32px;
   }
 
