@@ -38,12 +38,10 @@ Este proyecto fue desarollado con la libreria de React, manejando una arquitectu
               cascada o por parametro sino que pueden obtener la misma informacion independientemente que esten
               anidados unos a otros, lo que hace que la APP pueda ser bastante flexible y escalable.
 
-- Controllers: Componentes que se encargan de manipular, filtrar y armar la data que viene de la API, para solo retornar
-               la data especifica que necesita el componente.
-
 - scss: Carpeta que contiene todo lo que tiene que ver con estilos en la APP desde archivos globales, mixins, utilidades
         contantes, colores, etc, hasta los archivos puntuales de los componentes. Cabe mencionar que el patron que se utilizo 
         para los estilos de este proyecto fue BEM.
+        Tambien se manejo una grilla de 12 columnas con el CSS Grid layout. 
 
 - servicios: Carpeta donde se encuentra el servicio de request a la API.
 

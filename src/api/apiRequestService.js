@@ -8,30 +8,44 @@ class ApiRequestService {
   /**
    * Makes the request on the DB.
    * @param {!Object} res Request response object.
-   * @param {string} endPointUrl Endpoint URL to request.
+   * @param {!Object} endPointDict Endpoint URL to request dict.
    * @param {!Function} callback Request response callback.
    */
-  makeRequest(res, endPointUrl, callback) {
-    endPointUrl = utils.removeNonAsciiChar(endPointUrl);
+  async makeRequest(res, endPointDict, callback) {
+    const getDataFromRequest = (endPointDict) => {
+      const bodyData = {};
+
+      return Promise.all(Object.keys(endPointDict).map((key) => {
+        const url = endPointDict[key];
+
+        return new Promise((resolve) => {
+          const urlFiltered = utils.removeNonAsciiChar(url);
+        
+          request({
+            url: urlFiltered,
+            json: true
+          }, (error, response, body) => {
+            const responseOk = response.statusCode === 200;
+
+            if (error || !response) {
+              res.send(REQUEST_ERROR.default);
+            }
+    
+            if (responseOk) {
+              bodyData[key] = body;
+            }
+
+            resolve(bodyData);
+          });
+        });
+      }));
+    }
 
     try {
-      request({
-        url: endPointUrl,
-        json: true
-      }, (error, response, body) => {
+      const dataFromRequest = await getDataFromRequest(endPointDict);
 
-        if (error || !response) {
-          res.send(REQUEST_ERROR.default);
-        }
+      callback(...dataFromRequest);
 
-        if (response.statusCode === 404) {
-          res.send(REQUEST_ERROR.CODE_404);
-        }
-
-        if (response.statusCode === 200) {
-          callback(body);
-        }
-      });
     } catch (error) {
       res.send(error, REQUEST_ERROR.CODE_500);
     }

@@ -23,6 +23,7 @@ import {removeNonAsciiChar} from '../api/utils';
 
     return fetch(requestData).then((response) => {
       if (response.ok) {
+
         return response.json();
       } else {
         throw Error(response.statusText);
@@ -30,17 +31,6 @@ import {removeNonAsciiChar} from '../api/utils';
     }).catch((error) => {
       console.error('There is a problem with the request', error);
     });
-  }
-
-  /**
-   * Gets product's description from the API with the product ID.
-   * @param {string} id The product ID.
-   * @return {Promise}
-   */
-  async getItemTextById(id) {
-    const urlRequest = `${CONSTANTS.API_DOMAIN}/api${CONSTANTS_APP.ITEMS_PATH}/${id}​/description`;
-
-    return await this.fetchRequest(urlRequest);
   }
 
   /**
@@ -70,30 +60,15 @@ import {removeNonAsciiChar} from '../api/utils';
   }
   
   /**
-   * Gets the items maximum limit.
-   * @param {string} id The product ID.
-   * @param {number} maxLimit The maximum limit of items to show.
-   * @return {Array}
-   */
-  getItemsMax = (items, maxLimit) => {
-    return items.filter((elem, index) => {
-      if (index < maxLimit) {
-        return elem;
-      }
-    });
-  }
-
-  /**
    * Gets the products list from the API with the query string.
    * @param {string} query The product string to search.
    * @return {Array}
    */
   async getItemsBySearch(query) {
     const urlRequest = `${CONSTANTS.API_DOMAIN}/api${CONSTANTS_APP.ITEMS_PATH}?q=${query}​`;
-    const {items} = await this.fetchRequest(urlRequest);
-    const itemsMax = this.getItemsMax(items, 4);
+    const {items, categories} = await this.fetchRequest(urlRequest);
 
-    return itemsMax;
+    return {items, categories};
   }
 }
 

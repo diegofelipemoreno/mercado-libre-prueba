@@ -19,12 +19,10 @@ const ProductDetail = () => {
         return;
       }
   
-      const {title, thumbnail, price, sold_quantity, category_id} = product;
-      const productText = await requestService.getItemTextById(id);
-      const plainText = productText.item.plain_text;
+      const {title, thumbnail, price, sold_quantity, category_id, description} = product;
 
       setCategoryId(category_id);
-      setProductData({title, thumbnail, price, sold_quantity, plainText});
+      setProductData({title, thumbnail, price, sold_quantity, description});
     };
   
     const getProductFromRequest = async() => {
@@ -83,7 +81,7 @@ const ProductDetail = () => {
           </figcaption>
           <div className="product__description">
             <p className="product__title">Descripción del producto</p>
-            <p className="product__text">{productData.plainText}</p>
+            <p className="product__text">{productData.description}</p>
           </div>
         </div>
       )}

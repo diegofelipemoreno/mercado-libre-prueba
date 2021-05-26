@@ -8,12 +8,12 @@ const Breadcrumb = (props) => {
       <div className="breadcrumb__container">
         {!!categories?.length && (
           <ul className="breadcrumb__list">
-            {categories.map((elem) => {
-              const {id, name} = elem;
+            {categories.map((elem, index) => {
+              const categoryIdx = `category-${index}`;
 
               return (
-                <li key={id} className="breadcrumb__category">
-                  {name}
+                <li key={categoryIdx} className="breadcrumb__category">
+                  {elem}
                 </li>
               );
             })}

@@ -15,20 +15,18 @@ const ProductList = ({items}) => {
       <ul className="products__container">
       {items.length ? (
           items.map((elem) => {
-            const {id, thumbnail, price, title, address, shipping} = elem;
-            const {city_name} = address;
-            const {free_shipping} = shipping;
+            const {id, picture, price, title, free_shipping} = elem;
+            const {currency, amount} = price;
 
             return (
               <li key={id} className="products__element">
                 <button className="products__cta" onClick={(event) => onClickProduct(event, id)}>
                   <figure className="products__image">
-                    <img alt="" src={thumbnail}/>
+                    <img alt="" src={picture}/>
                   </figure>
                   <figcaption className="products__body">
-                    <small className="products__city">{city_name}</small>
                     <p className="products__price">
-                      $ {price} {free_shipping && <img alt="" src="/images/ic_shipping.png"/>}
+                      {currency} {amount} {free_shipping && <img alt="" src="/images/ic_shipping.png"/>}
                     </p>
                     <p className="products__text">{title}</p>
                   </figcaption>
