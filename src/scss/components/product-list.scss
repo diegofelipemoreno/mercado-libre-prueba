@@ -27,6 +27,7 @@
 
     &--no-results {
       @include font-type($font-family-light, $base-font-size-huge, 16px);
+
       align-items: center;
       display: flex;
       justify-content: center;
@@ -41,6 +42,7 @@
 
   &__city {
     @include font-type($font-family-light, $base-font-size, 16px);
+
     color: $grey;
     position: absolute;
     right: 8%;
@@ -50,6 +52,7 @@
 
   &__price {
     @include font-type($font-family-light, $base-font-size-huge, 32px);
+
     margin-bottom: 32px;
   }
 

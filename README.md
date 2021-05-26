@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# Mercado Libre Challenge.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## Build Setup
 
 In the project directory, you can run:
 
-### `yarn start`
+``` bash
+Node version: v12.18.3
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Install dependencies
+npm install
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# In another terminal start the API local server at localhost:3001
+npm run api-dev
 
-### `yarn test`
+# Run the APP local server at localhost:3000
+npm run start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Notas:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Este proyecto fue desarollado con la libreria de React, manejando una arquitectura:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Api: Se encuentra todo el desarrollo de la API dividida en 3 grandes partes
+  -- Controllers: Reciben la data del enpoint (https://api.mercadolibre.com), la manipulan y devuelven de la forma que
+     se requiere (Data para categories, items, items description, search).
+  -- Routers: Se encargan de recibir y redireccionar URLs, pathnames, querys deacuerdo a los endpoints que se quieran asignar a la API.
+  -- apiRequestService: Servicio encargado de realizar los request a https://api.mercadolibre.com y deacuerdo a
+     las URLs que se le pasan como parametro devuelve la data especifica o respuesta del servidor. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Common: Archivos comunes, utilidades, constantes transversales a toda la APP.
 
-### `yarn eject`
+- Components: Todos los components de la APP (Header, caja de busqueda, lista de productos, producto detalle, etc).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Containers: Componentes encargados de hacer wrapper a otros componentes para que de esta manera el componente
+              tenga disponible la data del state. En este caso se le hizo un wrapper al componente "Layout", el cual 
+              contiene los componentes de la APP, de esta forma los componentes no tienen estar pasandose props en
+              cascada o por parametro sino que pueden obtener la misma informacion independientemente que esten
+              anidados unos a otros, lo que hace que la APP pueda ser bastante flexible y escalable.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Controllers: Componentes que se encargan de manipular, filtrar y armar la data que viene de la API, para solo retornar
+               la data especifica que necesita el componente.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- scss: Carpeta que contiene todo lo que tiene que ver con estilos en la APP desde archivos globales, mixins, utilidades
+        contantes, colores, etc, hasta los archivos puntuales de los componentes. Cabe mencionar que el patron que se utilizo 
+        para los estilos de este proyecto fue BEM.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- servicios: Carpeta donde se encuentra el servicio de request a la API.
 
-## Learn More
+- Store: Componente que contiene el state, setters y getters de la APP donde toda la informacion filtrada que viene de la API se guarda y esta
+        disponible para todos los componentes de la APP.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Blockers
+Durante este desarrollo se encontraron algunos blockers con sus respectivos workarounds que vale la pena mencionar:
+  - Se utilizo el modulo de node "dotenv" para generar las variable de las URLs tanto como ambiente de desarrollo como producción.
+    Si se corre la aplicacion en dev, carga las urls tipo localhost en produccion corre las urls reales. La API reconoce estas 
+    URLs alojadas en (.env.development, .env.produccion), pero la APP no. De alguna forma la APP no reconoce "process.env.APP_DOMAIN",
+    por lo tanto se tuvo que quemar la URL en el archivo de "services/requestService.js".

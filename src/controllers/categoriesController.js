@@ -1,6 +1,15 @@
 import {requestService} from '../services/requestService';
 
+/**
+ * Manages the categories data.
+ */
 class CategoriesController {
+  /**
+   * Gets a dictionary key category ID values number of times.
+   * @param {!Array<Object>} items List of data categories.
+   * @return {!Object} callback Request response callback.
+   * @private
+   */
   getCategoryIdDict_ = (items) => {
     let categoryIdDict = {};
 
@@ -22,6 +31,12 @@ class CategoriesController {
     return categoryIdDict;
   }
 
+  /**
+   * Gets the category ID with more visibility.
+   * @param {!Array<Object>} items List of data categories.
+   * @return {string} callback Request response callback.
+   * @private
+   */
   getMaxCategoryId_ = (items) => {
     const categoryIdDict = this.getCategoryIdDict_(items);
     const categoryIdList = Object.values(categoryIdDict);
@@ -41,6 +56,12 @@ class CategoriesController {
     return mainCategoryId;
   }
 
+  /**
+   * Gets the category data from request.
+   * @param {string} items The category ID.
+   * @return {Array<Object> | string}
+   * @private
+   */
   getCategoryData_ = (async(categoryId) => {
     if(!categoryId) {
       return '';
@@ -51,16 +72,30 @@ class CategoriesController {
     return categoryData?.categories?.path_from_root || [];
   });
   
+  /**
+   * Gets the category data from ID argument.
+   * @param {string} items The category ID.
+   * @return {Array<Object>}
+   */
   getCategoryById = async(categoryId) => {
     return await this.getCategoryData_(categoryId);
   };
 
+  /**
+   * Gets the category data from list of categories.
+   * @param {Array<Object>} items The category ID.
+   * @return {Array<Object>}
+   */
   getCategoryByItems = async(items) => {
     const maxCategoryId = this.getMaxCategoryId_(items);
     
     return await this.getCategoryData_(maxCategoryId);
   };
 
+  /**
+   * Initializes.
+   * @return {Object<Function>}
+   */
   init() {
     return {
       getCategoryById: this.getCategoryById,

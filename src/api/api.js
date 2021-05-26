@@ -9,7 +9,7 @@ const app = express();
 
 app.use(corsConfig);
 app.listen(CONSTANTS.API.PORT, () => {
-  console.log(`Mercado Libre APP listening on port ${CONSTANTS.API.PORT}!`)
+  console.log(`Mercado Libre API listening on port ${CONSTANTS.API.PORT}!`)
 });
 app.use('/', indexRouter);
 app.use('/api', itemsRouter);

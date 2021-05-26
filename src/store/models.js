@@ -31,8 +31,8 @@ export const AppState = {
   effects: (dispatch) => ({
     async fetchItems({searchValue, pathname}) {
       try {
-        const itemsRegExp = /\/items\//g;
-        const itemId = pathname.split(itemsRegExp)[1];
+        const itemsPathRegExp = /\/items\//g;
+        const itemId = pathname.split(itemsPathRegExp)[1];
         let items = [];
         let categories = [];
         let product = {};

@@ -9,11 +9,11 @@ const mapStateToProps = ({ AppState }) => ({
 });
   
 const mapDispatchToProps = ({ 
-    AppState: { 
-      fetchItems,
-    } 
-  }) => ({
-    fetchItems: (queryData) => fetchItems(queryData)
+  AppState: { 
+    fetchItems,
+  } 
+}) => ({
+  fetchItems: (queryData) => fetchItems(queryData)
 });
-  
+
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

@@ -6,9 +6,9 @@ import {removeNonAsciiChar} from '../api/utils';
  */
  class RequestService {
   /**
-   * Requests to the API URL.
+   * Fetch requests from the API URL.
    * @param {string} url Endpoint URL request.
-   * @return {!Object}
+   * @return {Object}
    */
   async fetchRequest(url) {
     const urlFiltered = removeNonAsciiChar(url);
@@ -72,11 +72,12 @@ import {removeNonAsciiChar} from '../api/utils';
   /**
    * Gets the items maximum limit.
    * @param {string} id The product ID.
+   * @param {number} maxLimit The maximum limit of items to show.
    * @return {Array}
    */
-  getItemsMax = (items) => {
+  getItemsMax = (items, maxLimit) => {
     return items.filter((elem, index) => {
-      if (index < 4) {
+      if (index < maxLimit) {
         return elem;
       }
     });
@@ -90,7 +91,7 @@ import {removeNonAsciiChar} from '../api/utils';
   async getItemsBySearch(query) {
     const urlRequest = `${CONSTANTS.API_DOMAIN}/api${CONSTANTS_APP.ITEMS_PATH}?q=${query}​`;
     const {items} = await this.fetchRequest(urlRequest);
-    const itemsMax = this.getItemsMax(items);
+    const itemsMax = this.getItemsMax(items, 4);
 
     return itemsMax;
   }
