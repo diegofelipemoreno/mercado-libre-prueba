@@ -10,4 +10,4 @@
   return query.replace(nonAsciiRegex, '');
 }
 
-module.exports = {removeNonAsciiChar};
+module.exports = removeNonAsciiChar;
