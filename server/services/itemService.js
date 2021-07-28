@@ -2,10 +2,10 @@ const CONSTANTS = require('../constants.js');
 
 /**
  * Items service that manages the item data business logic.
- * @param {Object} itemEntity Item business logic data.
+ * @param {Object} item Item business logic data.
  */
-const itemService = (itemEntity) => {
-  const {data, description, currency} = itemEntity;
+const itemService = (item) => {
+  const {data, description, currency} = item;
   const {symbol, decimal_places} = currency;
   const {id, title, thumbnail, condition, shipping, sold_quantity, price, category_id} = data;
   const {free_shipping} = shipping;

@@ -4,20 +4,19 @@ const CONSTANTS = require('../constants');
  * Service that manages the search results business logic.
  * @param {!Object} resultsData Search results data.
  */
-const searchService = (resultsData) => {
-  const {items, categories} = resultsData;
-  const itemResults = [];
-  const categoriesResult =
-    categories ? categories.path_from_root.map((elem) => elem.name) : [];
+const searchService = ({items, categories}) => {
+  const itemsResult = [];
+  const categoriesResult = categories.map((elem) => elem.values[0].path_from_root.map((category) => category.name));
 
   for (let index = 0; index < items.length; index++) {
     const item = items[index];
+
     const {data, description, currency} = item;
     const {symbol, decimal_places} = currency;
     const {id, title, thumbnail, condition, shipping, sold_quantity, price, category_id} = data;
     const {free_shipping} = shipping;
 
-    itemResults.push({
+    itemsResult.push({
       id,
       title,
       price: {
@@ -36,8 +35,8 @@ const searchService = (resultsData) => {
 
   return {
     ...CONSTANTS.API.AUTHOR,
-    categories: categoriesResult,
-    items: itemResults,
+    categories: [...categoriesResult],
+    items: itemsResult,
   }
 };
 

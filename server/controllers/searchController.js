@@ -1,6 +1,6 @@
 const CONSTANTS = require('../constants');
 
-const {getItemEntity, getResultsMax, getItemCategories} = require('./helpers'); 
+const getItemDict = require('./helpers'); 
 const searchService = require('../services/searchService'); 
 
 /**
@@ -13,6 +13,7 @@ const searchController = async(requestUtil, params) => {
     `${CONSTANTS.API.DOMAIN_END_POINT}${CONSTANTS.API.SEARCH_END_POINT}${params}`;
   const resultsResponse = await requestUtil(searchEndPoint);
   const {statusCode, body} = resultsResponse;
+  const searchResults = body.data;
 
   if (statusCode >= 500) {
     return {
@@ -31,7 +32,7 @@ const searchController = async(requestUtil, params) => {
   if (statusCode === 200) {
     return {
       statusCode,
-      body: await getSearchResultsFromService(requestUtil, body)
+      body: await getSearchResultsFromService(requestUtil, searchResults)
     };
   } 
 };
@@ -39,26 +40,25 @@ const searchController = async(requestUtil, params) => {
 /**
  * Gets search result data filtered from the service.
  * @param {!Function} requestUtil Request util object.
- * @param {Object} body The search results request response.
+ * @param {Object} searchResults The search results request response.
  * @return {!Object}
  */
- const getSearchResultsFromService = async(requestUtil, {data}) => {
-  const {results} = data;
-  const itemsMaxResults = getResultsMax(results, 4);
+ const getSearchResultsFromService = async(requestUtil, searchResults) => {
+  const {results, filters} = searchResults;
+  const MAXIMUM_ITEMS = 4;
   const items = [];
-  let categoryId = '';
 
-  for (let index = 0; index < itemsMaxResults.length; index++) {
-    const item = itemsMaxResults[index];
-    const itemEntity = await getItemEntity(requestUtil, item);
+  for (let index = 0; index < results.length; index++) {
+    if (index < MAXIMUM_ITEMS) {
+      const item = await getItemDict(requestUtil, results[index]);
 
-    categoryId = item.category_id;
-    items.push(itemEntity);
+      items.push(item);
+    }
   }
 
   return searchService({
     items,
-    categories: await getItemCategories(requestUtil, categoryId)
+    categories: filters
   });
 }
 

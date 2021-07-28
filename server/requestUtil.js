@@ -34,6 +34,8 @@ const removeNonAsciiChar = require('./utils');
           }
         })
         .catch((error) => {
+         console.error(error);
+  
           const {response} = error;
 
           if (!response) {
@@ -43,6 +45,8 @@ const removeNonAsciiChar = require('./utils');
           return {statusCode: response.status, body: {error}};
         });
     } catch (error) {
+     console.error(error);
+
       const {response} = error;
 
       return {statusCode: response.status, body: {error}};

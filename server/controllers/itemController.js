@@ -1,6 +1,6 @@
 const CONSTANTS = require('../constants');
 
-const {getItemEntity} = require('./helpers'); 
+const getItemDict = require('./helpers'); 
 const itemService = require('../services/itemService'); 
 
 /**
@@ -14,6 +14,7 @@ const itemController = async(requestUtil, params) => {
   const itemResponse = await requestUtil(itemEndPoint);
   const {statusCode, body} = itemResponse;
   const itemData = body.data || null;
+  const item = await getItemDict(requestUtil, itemData);
 
   if (statusCode >= 500) {
     return {
@@ -32,21 +33,9 @@ const itemController = async(requestUtil, params) => {
   if (statusCode === 200) {
     return {
       statusCode,
-      body: await getItemDataFromService(requestUtil, itemData)
+      body: itemService(item)
     };
   } 
 };
-
-/**
- * Get item data filtered from the service.
- * @param {!Function} requestUtil Request util object.
- * @param {Object} itemData The item data from the request response.
- * @return {!Object}
- */
- const getItemDataFromService = async(requestUtil, itemData) => {
-  const itemEntity = await getItemEntity(requestUtil, itemData);
-
-  return itemService(itemEntity);
-}
 
 module.exports = itemController;
