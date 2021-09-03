@@ -4,7 +4,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 
 require('dotenv').config({path: path.join(`.env.${NODE_ENV}`)});
 
-const whiteList = [process.env.APP_DOMAIN];
+const whiteList = [process.env.REACT_APP_APP_DOMAIN];
 const corsOptions = {
   origin: (origin, callback) => {
     const originIsWhitelisted = whiteList.indexOf(origin) !== -1;

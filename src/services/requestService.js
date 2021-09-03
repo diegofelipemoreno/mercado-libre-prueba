@@ -1,5 +1,5 @@
 import {CONSTANTS_APP} from '../common/constants';
-import {removeNonAsciiChar} from '../api/utils';
+import removeNonAsciiChar from '../utils';
 
 /**
  * Request Service to get data from the API.
@@ -39,7 +39,7 @@ import {removeNonAsciiChar} from '../api/utils';
    * @return {Promise}
    */
   async getItemById(id) {
-    const urlRequest = `${CONSTANTS.API_DOMAIN}/api${CONSTANTS_APP.ITEMS_PATH}/${id}​`;
+    const urlRequest = `${process.env.REACT_APP_API_DOMAIN}/${CONSTANTS_APP.ITEMS_PATH}/${id}​`;
 
     return await this.fetchRequest(urlRequest);
   }
@@ -54,7 +54,7 @@ import {removeNonAsciiChar} from '../api/utils';
       return;
     }
 
-    const urlRequest = `${CONSTANTS.API_DOMAIN}${CONSTANTS_APP.CATEGORY_PATH}/${id}​`;
+    const urlRequest = `${process.env.REACT_APP_API_DOMAIN}/${CONSTANTS_APP.CATEGORY_PATH}/${id}​`;
 
     return await this.fetchRequest(urlRequest);
   }
@@ -65,19 +65,12 @@ import {removeNonAsciiChar} from '../api/utils';
    * @return {Array}
    */
   async getItemsBySearch(query) {
-    const urlRequest = `${CONSTANTS.API_DOMAIN}/api${CONSTANTS_APP.ITEMS_PATH}?q=${query}​`;
+    const urlRequest = `${process.env.REACT_APP_API_DOMAIN}${CONSTANTS_APP.ITEMS_PATH}?q=${query}​`;
     const {items, categories} = await this.fetchRequest(urlRequest);
 
     return {items, categories};
   }
 }
 
-/**
- * Constants.
- * @enum {Object}
- */
- const CONSTANTS = {
-  API_DOMAIN: 'http://localhost:3001',
-}
 
 export const requestService = new RequestService();

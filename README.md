@@ -53,5 +53,5 @@ Este proyecto fue desarollado con la libreria de React, manejando una arquitectu
 Durante este desarrollo se encontraron algunos blockers con sus respectivos workarounds que vale la pena mencionar:
   - Se utilizo el modulo de node "dotenv" para generar las variable de las URLs tanto como ambiente de desarrollo como producción.
     Si se corre la aplicacion en dev, carga las urls tipo localhost en produccion corre las urls reales. La API reconoce estas 
-    URLs alojadas en (.env.development, .env.produccion), pero la APP no. De alguna forma la APP no reconoce "process.env.APP_DOMAIN",
+    URLs alojadas en (.env.development, .env.produccion), pero la APP no. De alguna forma la APP no reconoce "process.env.REACT_APP_APP_DOMAIN",
     por lo tanto se tuvo que quemar la URL en el archivo de "services/requestService.js".
